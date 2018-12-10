@@ -3,16 +3,16 @@ let Lists = require('../models/list')
 let Board = require('../models/board')
 
 //GET
-// router.get('/', (req, res, next) => {
-//   Lists.find({ authorId: req.session.uid })
-//     .then(data => {
-//       res.send(data)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       next()
-//     })
-// })
+router.get('/:boardId', (req, res, next) => {
+  Lists.find({ authorId: req.session.uid, boardId: req.params.boardId })
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      console.log(err)
+      next()
+    })
+})
 
 //POST
 router.post('/', (req, res, next) => {
