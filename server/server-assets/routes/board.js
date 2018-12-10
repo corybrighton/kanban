@@ -13,6 +13,17 @@ router.get('/', (req, res, next) => {
     })
 })
 
+router.get('/:id', (req, res, next) => {
+  Boards.findOne(req.params.id)
+    .then(data => {
+      res.send(data)
+    })
+    .catch(err => {
+      console.log(err)
+      next()
+    })
+})
+
 //POST
 router.post('/', (req, res, next) => {
   req.body.authorId = req.session.uid
