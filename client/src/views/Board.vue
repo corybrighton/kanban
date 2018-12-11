@@ -26,6 +26,9 @@
       },
       lists() {
         return this.$store.state.lists
+      },
+      board() {
+        return this.$store.state.boards.find((b => b._id) == this.boardId) || { title: 'Loading...' }
       }
     },
     components: {
