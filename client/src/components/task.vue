@@ -5,8 +5,10 @@
 </template>
 
 <script>
+
+
   export default {
-    name: 'task',
+    name: 'Task',
     data() {
       return {
 
@@ -14,6 +16,7 @@
     },
     computed: {},
     methods: {}
+
   }
 
 </script>

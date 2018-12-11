@@ -9,7 +9,8 @@ let schema = new Schema({
   description: { type: String, required: true },
   authorId: { type: ObjectId, ref: 'User', required: true },
   listId: { type: ObjectId, ref: 'List', required: true },
-  boardId: { type: ObjectId, ref: 'Board', required: true }
+  boardId: { type: ObjectId, ref: 'Board', required: true },
+  comment: [new Schema({ body: { type: String } })]
 }, { timestamps: true })
 
 

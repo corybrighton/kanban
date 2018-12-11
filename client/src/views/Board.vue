@@ -6,9 +6,9 @@
     <form @submit.prevent="createList">
       <input type="text" placeholder="Title" v-model="newList.title">
       <input type="textarea" placeholder="Description" v-model="newList.description">
-      <input type="submit">
-      <list v-for="list in lists" :list="list">List</list>
+      <button type="submit" @click="createList">Create List</button>
     </form>
+    <list v-for="list in lists" :list="list">List</list>
   </div>
 </template>
 

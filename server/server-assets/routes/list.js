@@ -1,6 +1,5 @@
 let router = require('express').Router()
 let Lists = require('../models/list')
-let Board = require('../models/board')
 
 //GET
 router.get('/:boardId', (req, res, next) => {
