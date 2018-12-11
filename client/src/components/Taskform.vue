@@ -26,10 +26,8 @@
 
     methods: {
       createTask() {
-        console.log("before", this.list)
         this.newTask.listId = this.list._id
         this.newTask.boardId = this.list.boardId
-        console.log("Taskform.vue", this.newTask)
         this.$store.dispatch("createTask", this.newTask)
       }
     },

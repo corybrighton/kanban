@@ -115,7 +115,6 @@ export default new Vuex.Store({
         })
     },
     createTask({ commit }, newTask) {
-      console.log('createTask', newTask)
       api.post('/tasks/' + newTask.listId, newTask)
         .then(res => {
           commit('setTasks', res.data)

@@ -12,6 +12,16 @@ router.post('/:listId', (req, res, next) => {
       next()
     })
 })
+router.get('/:listId', (req, res, next) => {
+  Tasks.find({ authorId: req.session.uid, listId: req.params.listId })
+    .then(tasks => {
+      res.send(tasks)
+    })
+    .catch(err => {
+      console.log(err)
+      next()
+    })
+})
 
 
 
