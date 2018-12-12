@@ -3,7 +3,7 @@
     <h1>{{list.title}} : </h1>
     <h3> {{list.description}} </h3>
     <button @click="showTaskform = !showTaskform">Add Task</button>
-    <task v-for="task in tasks" :taskData="task"></task>
+    <task v-for="task in tasks" :taskData="task" v-if="task.listId == list._id"></task>
     <taskform v-if="showTaskform" :list='list'></taskform>
   </div>
 </template>
@@ -30,7 +30,7 @@
     methods: {},
     computed: {
       tasks() {
-        return this.$store.state.tasks
+        return this.$store.state.tasks[this.list._id]
       }
     }
   }

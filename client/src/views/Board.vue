@@ -17,7 +17,7 @@
   export default {
     name: "board",
     mounted() {
-      this.$store.dispatch('getBoardById', this.boardId)
+      this.$store.dispatch('getBoardById', this.$route.params.boardId)
       this.$store.dispatch('getLists', this.boardId)
     },
     computed: {
@@ -47,12 +47,6 @@
       createList() {
         this.newList.boardId = this.boardId
         this.$store.dispatch('createList', this.newList)
-      }
-    },
-    created() {
-      //blocks users not logged in
-      if (!this.$store.state.user._id) {
-        this.$router.push({ name: "login" });
       }
     },
     props: ["boardId"]

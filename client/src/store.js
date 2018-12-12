@@ -41,14 +41,10 @@ export default new Vuex.Store({
     setActiveBoard(state, board) {
       state.activeBoard = board
     },
-    setTasks(state, tasks) {
-      tasks.forEach(task => {
-        state.tasks[task.listId] = task
-      });
-    },
-    addTask(state, task) {
-      state.tasks[task.listId] = task
+    setTasks(state, payload) {
+      Vue.set(state.tasks, payload.listId, payload.tasks)
     }
+
   },
   actions: {
     //AUTH STUFF
@@ -56,21 +52,25 @@ export default new Vuex.Store({
       auth.post('register', newUser)
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'boards' })
+          dispatch('getBoards')
         })
     },
     authenticate({ commit, dispatch }) {
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'boards' })
+          dispatch('getBoards')
+        })
+        .catch(err => {
+          console.log(err)
+          router.push({ name: 'login' })
         })
     },
     login({ commit, dispatch }, creds) {
       auth.post('login', creds)
         .then(res => {
           commit('setUser', res.data)
-          router.push({ name: 'boards' })
+          dispatch('getBoards')
         })
     },
 
@@ -79,12 +79,16 @@ export default new Vuex.Store({
       api.get('boards')
         .then(res => {
           commit('setBoards', res.data)
+
         })
     },
     getBoardById({ commit }, id) {
       api.get('boards/' + id)
         .then(res => {
           commit('setActiveBoard', res.data)
+        })
+        .catch(err => {
+          router.push({ name: "boards" })
         })
     },
     addBoard({ commit, dispatch }, boardData) {
@@ -116,13 +120,17 @@ export default new Vuex.Store({
     getTasks({ commit }, listId) {
       api.get('/tasks/' + listId)
         .then(res => {
-          commit('setTasks', res.data)
+          let payload = {
+            listId: listId,
+            tasks: res.data
+          }
+          commit('setTasks', payload)
         })
     },
-    createTask({ commit }, newTask) {
+    createTask({ commit, dispatch }, newTask) {
       api.post('/tasks/' + newTask.listId, newTask)
         .then(res => {
-          commit('addTask', res.data)
+          dispatch('getTasks', res.data.listId)
         })
     }
   }
