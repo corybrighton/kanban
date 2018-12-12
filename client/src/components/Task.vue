@@ -1,6 +1,6 @@
 <template>
   <div class="task">
-
+    {{taskData.title}}: {{taskData.description}}
   </div>
 </template>
 
@@ -15,7 +15,8 @@
       }
     },
     computed: {},
-    methods: {}
+    methods: {},
+    props: ["taskData"]
 
   }
 

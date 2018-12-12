@@ -42,7 +42,12 @@ export default new Vuex.Store({
       state.activeBoard = board
     },
     setTasks(state, tasks) {
-      // state.tasks[listId] = tasks
+      tasks.forEach(task => {
+        state.tasks[task.listId] = task
+      });
+    },
+    addTask(state, task) {
+      state.tasks[task.listId] = task
     }
   },
   actions: {
@@ -95,11 +100,11 @@ export default new Vuex.Store({
         })
     },
     //Create a list and add to end of lists
-    createList({ commit }, newList) {
+    createList({ commit, dispatch }, newList) {
       api.post('/lists', newList)
-        .then(res => {
-          console.log("Created List", res.data)
-          commit('addList', res.data)
+        .then(newList => {
+          console.log("Created List", newList.data)
+          dispatch('getList', newList.data.boardId)
         })
     },
     getLists({ commit }, boardId) {
@@ -109,7 +114,7 @@ export default new Vuex.Store({
         })
     },
     getTasks({ commit }, listId) {
-      api.get('/lists/' + listId)
+      api.get('/tasks/' + listId)
         .then(res => {
           commit('setTasks', res.data)
         })
@@ -117,7 +122,7 @@ export default new Vuex.Store({
     createTask({ commit }, newTask) {
       api.post('/tasks/' + newTask.listId, newTask)
         .then(res => {
-          commit('setTasks', res.data)
+          commit('addTask', res.data)
         })
     }
   }

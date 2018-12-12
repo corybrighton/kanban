@@ -3,7 +3,7 @@
     <h1>{{list.title}} : </h1>
     <h3> {{list.description}} </h3>
     <button @click="showTaskform = !showTaskform">Add Task</button>
-    <task></task>
+    <task v-for="task in tasks" :taskData="task"></task>
     <taskform v-if="showTaskform" :list='list'></taskform>
   </div>
 </template>
@@ -12,12 +12,14 @@
   import Task from '@/components/Task.vue'
   import Taskform from '@/components/Taskform.vue'
 
-
   export default {
     data() {
       return {
         showTaskform: false
       }
+    },
+    mounted() {
+      this.$store.dispatch("getTasks", this.list._id)
     },
     name: 'List',
     props: ['list'],
@@ -25,8 +27,11 @@
       Task,
       Taskform
     },
-    methods: {
-
+    methods: {},
+    computed: {
+      tasks() {
+        return this.$store.state.tasks
+      }
     }
   }
 </script>
