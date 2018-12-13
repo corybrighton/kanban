@@ -3,7 +3,7 @@
     WELCOME TO THE BOARDS!!!
     <form @submit.prevent="addBoard">
       <input type="text" placeholder="title" v-model="newBoard.title" required>
-      <input type="text" placeholder="description" v-model="newBoard.description">
+      <input type="text" placeholder="description" v-model="newBoard.description" required>
       <button type="submit">Create Board</button>
     </form>
     <div v-for="board in boards" :key="board._id">
@@ -47,3 +47,10 @@
     }
   };
 </script>
+<style>
+  body {
+    background-image: url('https://www.hiltonheadisland.org/sites/default/files/2018-02/beaches_video.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+</style>

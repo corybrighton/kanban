@@ -79,7 +79,6 @@ export default new Vuex.Store({
       api.get('boards')
         .then(res => {
           commit('setBoards', res.data)
-
         })
     },
     getBoardById({ commit }, id) {

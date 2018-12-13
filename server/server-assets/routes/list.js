@@ -58,10 +58,8 @@ router.delete('/:id', (req, res, next) => {
       if (!list.authorId.equals(req.session.uid)) {
         return res.status(401).send("ACCESS DENIED!")
       }
-      Lists.findByIdAndRemove(req.params.id)
-        .then(() => {
-          res.send('DELORTED')
-        })
+      list.remove()
+      res.send({ message: "Belorted" })
     })
 })
 

@@ -1,8 +1,8 @@
 <template>
   <div class="Taskform">
     <form @submit.prevent="createTask">
-      <input type="text" placeholder="Task" v-model="newTask.title">
-      <input type="text" placeholder="Description" v-model="newTask.description">
+      <input type="text" placeholder="Task" v-model="newTask.title" required>
+      <input type="text" placeholder="Description" v-model="newTask.description" required>
       <button type="submit">Create Task</button>
     </form>
   </div>
@@ -28,6 +28,7 @@
         this.newTask.listId = this.list._id
         this.newTask.boardId = this.list.boardId
         this.$store.dispatch("createTask", this.newTask)
+        this.newTask = { listId: '', boardId: '', title: '', description: '' }
       }
     },
     props: ["list"]

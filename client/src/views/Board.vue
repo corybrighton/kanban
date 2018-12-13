@@ -1,5 +1,6 @@
 <template>
   <div class="board">
+    <router-link :to="{name: 'boards'}">boards</router-link>
     <h1>
       {{activeBoard.title}}: {{activeBoard.description}}
     </h1>
@@ -47,6 +48,7 @@
       createList() {
         this.newList.boardId = this.boardId
         this.$store.dispatch('createList', this.newList)
+        this.newList = { title: '', description: '', boardId: '' }
       }
     },
     props: ["boardId"]

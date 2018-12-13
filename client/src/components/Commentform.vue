@@ -27,6 +27,7 @@
         this.newComment.taskId = this.taskId
         this.newComment.listId = this.listId
         this.$store.dispatch('createComment', this.newComment)
+        this.newComment = { listId: '', taskId: '', comment: { body: '' } }
       }
     },
     props: ['taskId', 'listId']

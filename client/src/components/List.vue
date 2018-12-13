@@ -1,9 +1,10 @@
 <template>
-  <div class="list">
-    <h3>{{list.title}} : </h3>
-    <h5> {{list.description}} </h5>
-    <button @click="showTaskform = !showTaskform">Add Task</button>
-    <i @click="deleteList" class="fas fa-trash-alt"></i>
+  <div class="list card col-3">
+    <div class="card-title d-flex justify-content-around align-items-center">
+      <h3>{{list.title}} : {{list.description}}</h3>
+      <i @click="showTaskform = !showTaskform" class="fas fa-plus"></i>
+      <i @click="deleteList" class="fas fa-trash-alt"></i>
+    </div>
     <task v-for="task in tasks" :taskData="task" v-if="task.listId == list._id"></task>
     <taskform v-if="showTaskform" :list='list'></taskform>
   </div>
