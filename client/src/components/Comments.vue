@@ -1,6 +1,7 @@
 <template>
   <div class="comment">
-    comment
+    {{commentData.body}}
+    <i @click="deleteComment" class="fas fa-backspace"></i>
   </div>
 </template>
 
@@ -9,12 +10,23 @@
     name: 'comment',
     data() {
       return {
-
+        ids: {
+          commentId: '',
+          taskId: '',
+          listId: ''
+        }
       }
     },
     computed: {},
-    methods: {},
-    props: ["comment"]
+    methods: {
+      deleteComment() {
+        this.ids.commentId = this.commentData._id
+        this.ids.taskId = this.taskId
+        this.ids.listId = this.listId
+        this.$store.dispatch('deleteComment', this.ids)
+      }
+    },
+    props: ["commentData", "taskId", "listId"]
   }
 
 </script>

@@ -1,7 +1,6 @@
 <template>
   <div class="Taskform">
     <form @submit.prevent="createTask">
-
       <input type="text" placeholder="Task" v-model="newTask.title">
       <input type="text" placeholder="Description" v-model="newTask.description">
       <button type="submit">Create Task</button>

@@ -16,6 +16,7 @@ let schema = new Schema({
 //CASCADE ON DELETE
 schema.pre('remove', function (next) {
   //find all the lists and remove them
+  // @ts-ignore
   Promise.all([
     Tasks.deleteMany({ boardId: this._id }),
     Lists.deleteMany({ boardId: this.id })

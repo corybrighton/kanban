@@ -107,7 +107,6 @@ export default new Vuex.Store({
     createList({ commit, dispatch }, newList) {
       api.post('/lists', newList)
         .then(newList => {
-          console.log("Created List", newList.data)
           dispatch('getLists', newList.data.boardId)
         })
     },
@@ -134,9 +133,28 @@ export default new Vuex.Store({
         })
     },
     createComment({ commit, dispatch }, newComment) {
-      api.post('/comment/' + newComment.taskId, newComment)
+      api.post('/tasks/comments/' + newComment.taskId, newComment.comment)
         .then(res => {
-          dispatch('getTasks', res.data.listId)
+          dispatch('getTasks', newComment.listId)
+        })
+    },
+    deleteComment({ commit, dispatch }, ids) {
+      let deletePath = `/tasks/comments/${ids.taskId}/${ids.commentId}`
+      api.delete(deletePath)
+        .then(res => {
+          dispatch('getTasks', ids.listId)
+        })
+    },
+    deleteTask({ commit, dispatch }, ids) {
+      api.delete('/tasks/' + ids.taskId)
+        .then(res => {
+          dispatch('getTasks', ids.listId)
+        })
+    },
+    deleteList({ commit, dispatch }, ids) {
+      api.delete('/lists/' + ids.listId)
+        .then(() => {
+          dispatch('getLists', ids.boardId)
         })
     }
   }

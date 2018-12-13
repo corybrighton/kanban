@@ -1,9 +1,11 @@
 <template>
   <div class="task">
     {{taskData.title}}: {{taskData.description}}
-    <button @click="showCommentForm = !showCommentForm"> Add Comment</button>
-    <comment v-for="comment in taskData.comment" :comment="comment" />
-    <commentForm v-if="showCommentForm" />
+    <i @click="showCommentForm = !showCommentForm" class="fas fa-comment-dots"></i>
+    <i @click="deleteTask" class="fas fa-eraser"></i>
+
+    <comment v-for="comment in taskData.comments" :commentData="comment" :taskId="taskData._id" :listId="taskData.listId" />
+    <commentForm v-if="showCommentForm" :taskId="taskData._id" :listId="taskData.listId" />
   </div>
 </template>
 
@@ -19,7 +21,15 @@
       }
     },
     computed: {},
-    methods: {},
+    methods: {
+      deleteTask() {
+        let ids = {
+          listId: this.taskData.listId,
+          taskId: this.taskData._id
+        }
+        this.$store.dispatch('deleteTask', ids)
+      }
+    },
     components: {
       comment,
       commentForm

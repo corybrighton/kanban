@@ -2,6 +2,7 @@ let router = require('express').Router()
 let Tasks = require('../models/task')
 
 router.post('/:listId', (req, res, next) => {
+  // @ts-ignore
   req.body.authorId = req.session.uid
   Tasks.create(req.body)
     .then(task => {
@@ -14,12 +15,9 @@ router.post('/:listId', (req, res, next) => {
 })
 
 router.post('/comments/:taskId', (req, res, next) => {
-  const body = {
-    body: req.body
-  }
   Tasks.findById(req.params.taskId)
     .then(task => {
-      task.comments = task.comments.concat(body)
+      task.comments = task.comments.concat(req.body)
       const comment = task.comments[task.comments.length - 1]
       task.save(err => {
         if (err) {
@@ -33,8 +31,28 @@ router.post('/comments/:taskId', (req, res, next) => {
       next(err)
     })
 })
+router.delete('/comments/:taskId/:commentId', (req, res, next) => {
+  Tasks.findById(req.params.taskId)
+    .then(task => {
+      task.comments.id(req.params.commentId).remove(err => {
+        if (err) {
+          return next(err)
+        }
+      })
+      task.save()
+      res.send({ message: "Beleted" })
+    })
+})
+
+router.delete('/:taskId', (req, res, next) => {
+  Tasks.findByIdAndRemove(req.params.taskId)
+    .then(() => {
+      res.send({ message: "Delorted" })
+    })
+})
 
 router.get('/:listId', (req, res, next) => {
+  // @ts-ignore
   Tasks.find({ authorId: req.session.uid, listId: req.params.listId })
     .then(tasks => {
       res.send(tasks)
@@ -44,8 +62,6 @@ router.get('/:listId', (req, res, next) => {
       next()
     })
 })
-
-
 
 
 module.exports = router

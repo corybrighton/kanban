@@ -1,8 +1,8 @@
 <template>
   <div class="commentForm">
     <form @submit.prevent="createComment">
-      <input type="text" placeholder="Comment" v-model="comment">
-      <button type="submit">Add Comment</button>
+      <input type="text" placeholder="Comment" v-model="newComment.comment.body">
+      <button type="submit"><i class="fas fa-plus"></i></button>
     </form>
   </div>
 </template>
@@ -14,17 +14,22 @@
       return {
         newComment: {
           listId: '',
-          comment: ''
+          taskId: '',
+          comment: {
+            body: ''
+          }
         }
       }
     },
     computed: {},
     methods: {
       createComment() {
-        this.newComment.listId = this.task.listId
-        this.$store.dispatch('createComment', this.newComment.comment)
+        this.newComment.taskId = this.taskId
+        this.newComment.listId = this.listId
+        this.$store.dispatch('createComment', this.newComment)
       }
-    }
+    },
+    props: ['taskId', 'listId']
   }
 
 </script>
