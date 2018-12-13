@@ -108,7 +108,7 @@ export default new Vuex.Store({
       api.post('/lists', newList)
         .then(newList => {
           console.log("Created List", newList.data)
-          dispatch('getList', newList.data.boardId)
+          dispatch('getLists', newList.data.boardId)
         })
     },
     getLists({ commit }, boardId) {
@@ -129,6 +129,12 @@ export default new Vuex.Store({
     },
     createTask({ commit, dispatch }, newTask) {
       api.post('/tasks/' + newTask.listId, newTask)
+        .then(res => {
+          dispatch('getTasks', res.data.listId)
+        })
+    },
+    createComment({ commit, dispatch }, newComment) {
+      api.post('/comment/' + newComment.taskId, newComment)
         .then(res => {
           dispatch('getTasks', res.data.listId)
         })

@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-
+    comment
   </div>
 </template>
 
@@ -13,7 +13,8 @@
       }
     },
     computed: {},
-    methods: {}
+    methods: {},
+    props: ["comment"]
   }
 
 </script>
