@@ -3,7 +3,7 @@
     <form @submit.prevent="createTask">
       <input type="text" placeholder="Task" v-model="newTask.title" required>
       <input type="text" placeholder="Description" v-model="newTask.description" required>
-      <button type="submit">Create Task</button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Add Task" type="submit"><i class="fas fa-plus"></i></button>
     </form>
   </div>
 </template>

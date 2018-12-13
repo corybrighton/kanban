@@ -1,12 +1,14 @@
 <template>
-  <div class="list card col-3">
-    <div class="card-title d-flex justify-content-around align-items-center">
+  <div class="list card col-3 p-2 m-2">
+    <div class="card-header d-flex justify-content-around align-items-center">
       <h3>{{list.title}} : {{list.description}}</h3>
-      <i @click="showTaskform = !showTaskform" class="fas fa-plus"></i>
-      <i @click="deleteList" class="fas fa-trash-alt"></i>
+      <i data-toggle="tooltip" data-placement="bottom" title="Create Task" @click="showTaskform = !showTaskform" class="fas fa-plus"></i>
+      <i data-toggle="tooltip" data-placement="bottom" title="Delete List" @click="deleteList" class="fas fa-trash-alt"></i>
     </div>
-    <task v-for="task in tasks" :taskData="task" v-if="task.listId == list._id"></task>
-    <taskform v-if="showTaskform" :list='list'></taskform>
+    <div class="card-body">
+      <task v-for="task in tasks" :taskData="task" v-if="task.listId == list._id"></task>
+      <taskform v-if="showTaskform" :list='list'></taskform>
+    </div>
   </div>
 </template>
 

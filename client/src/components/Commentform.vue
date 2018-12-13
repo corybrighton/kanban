@@ -1,8 +1,8 @@
 <template>
   <div class="commentForm">
     <form @submit.prevent="createComment">
-      <input type="text" placeholder="Comment" v-model="newComment.comment.body">
-      <button type="submit"><i class="fas fa-plus"></i></button>
+      <input type="text" placeholder="Comment" v-model="newComment.comment.body" required>
+      <button data-toggle="tooltip" data-placement="bottom" title="Add Comment" type="submit"><i class="fas fa-plus"></i></button>
     </form>
   </div>
 </template>

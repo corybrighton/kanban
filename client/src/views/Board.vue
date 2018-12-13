@@ -1,15 +1,20 @@
 <template>
-  <div class="board">
-    <router-link :to="{name: 'boards'}">boards</router-link>
-    <h1>
-      {{activeBoard.title}}: {{activeBoard.description}}
-    </h1>
-    <form @submit.prevent="createList">
-      <input type="text" placeholder="Title" v-model="newList.title">
-      <input type="textarea" placeholder="Description" v-model="newList.description">
-      <button type="submit">Create List</button>
+  <div class="board container-fluid">
+    <div class="row d-flex justify-content-center align-items-center">
+      <router-link class="col-2" data-toggle="tooltip" data-placement="bottom" title="Back to Boards" :to="{name: 'boards'}"><i
+          class="fas fa-arrow-left fa-2x"></i></router-link>
+      <h1 class="col-8"> {{activeBoard.title}}: {{activeBoard.description}} </h1>
+      <i data-toggle="tooltip" data-placement="bottom" title="Create List" @click="showCreateListForm = !showCreateListForm"
+        class="col-2 far fa-plus-square fa-2x"></i>
+    </div>
+    <form @submit.prevent="createList" v-if="showCreateListForm">
+      <input type="text" placeholder="Title" v-model="newList.title" required>
+      <input type="textarea" placeholder="Description" v-model="newList.description" required>
+      <button data-toggle="tooltip" data-placement="bottom" title="Add List" type="submit"><i class="fas fa-plus"></i></button>
     </form>
-    <list v-for="list in lists" :list="list">List</list>
+    <div class="row d-flex justify-content-center">
+      <list v-for="list in lists" :list="list">List</list>
+    </div>
   </div>
 </template>
 
@@ -37,6 +42,7 @@
     },
     data() {
       return {
+        showCreateListForm: false,
         newList: {
           title: '',
           description: '',
@@ -54,3 +60,7 @@
     props: ["boardId"]
   };
 </script>
+
+<style>
+
+</style>

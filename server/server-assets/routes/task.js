@@ -63,5 +63,27 @@ router.get('/:listId', (req, res, next) => {
     })
 })
 
+router.put('/:taskId', (req, res, next) => {
+  Tasks.findById(req.params.taskId)
+    .then(task => {
+      // @ts-ignore
+      if (!task.authorId.equals(req.session.uid)) {
+        return res.status(401).send("ACCESS DENIED!")
+      }
+      task.update(req.body, (err) => {
+        if (err) {
+          console.log(err)
+          next()
+          return
+        }
+        res.send("Successfully Updated")
+      });
+    })
+    .catch(err => {
+      console.log(err)
+      next()
+    })
+})
+
 
 module.exports = router

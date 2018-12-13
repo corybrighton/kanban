@@ -1,7 +1,7 @@
 <template>
   <div class="comment">
     {{commentData.body}}
-    <i @click="deleteComment" class="fas fa-backspace"></i>
+    <i data-toggle="tooltip" data-placement="bottom" title="Delete Comment" @click="deleteComment" class="fas fa-backspace"></i>
   </div>
 </template>
 
