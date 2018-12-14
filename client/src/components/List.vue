@@ -1,5 +1,5 @@
 <template>
-  <div class="list card col-3 p-2 m-2">
+  <div class="list card text-white col-3 p-2 m-2">
     <div class="card-header d-flex justify-content-around align-items-center">
       <h3>{{list.title}} : {{list.description}}</h3>
       <i data-toggle="tooltip" data-placement="bottom" title="Create Task" @click="showTaskform = !showTaskform" class="fas fa-plus"></i>
@@ -49,4 +49,7 @@
 </script>
 
 <style scoped>
+  .card {
+    background-color: rgba(65, 69, 80, 0.959);
+  }
 </style>

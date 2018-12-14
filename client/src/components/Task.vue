@@ -1,8 +1,28 @@
 <template>
   <div class="task">
-    <div class="container-fluid d-flex justify-content-end align-items-center">
+    <div class="container-fluid">
+
+      <!-- Title of Tasks -->
+      <div class="row text-left">
+        <h4> {{taskData.title}}: {{taskData.description}} </h4>
+      </div>
+
+      <!-- Comments rows -->
       <div class="row">
-        <h4 class="col-6"> {{taskData.title}}: {{taskData.description}} </h4>
+        <comment class="col-12 d-flex justify-content-between" v-for="comment in taskData.comments" :commentData="comment"
+          :taskId="taskData._id" :listId="taskData.listId" />
+      </div>
+
+      <!-- Icon row -->
+      <div class="row d-flex justify-content-end ">
+
+        <div class="col-2">
+          <i data-toggle="tooltip" data-placement="bottom" title="Comment" @click="showCommentForm = !showCommentForm"
+            class="fas fa-comment-dots fa-2x"></i>
+        </div>
+        <div class="col-2">
+          <i data-toggle="tooltip" data-placement="bottom" title="Delete Task" @click="deleteTask" class="fas fa-eraser fa-2x"></i>
+        </div>
         <div class="col-2 dropdown" data-toggle="tooltip" data-placement="bottom" title="Move Task">
           <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -12,19 +32,12 @@
             <a class="dropdown-item" @click="moveTask(list._id)" v-for="list in lists">{{list.title}}</a>
           </div>
         </div>
-        <div class="col-2">
-          <i data-toggle="tooltip" data-placement="bottom" title="Comment" @click="showCommentForm = !showCommentForm"
-            class="fas fa-comment-dots fa-2x"></i>
-        </div>
-        <div class="col-2">
-          <i data-toggle="tooltip" data-placement="bottom" title="Delete Task" @click="deleteTask" class="fas fa-eraser fa-2x"></i>
-        </div>
       </div>
     </div>
-    <div class="row">
-      <comment class="col-12 d-flex justify-content-between" v-for="comment in taskData.comments" :commentData="comment" :taskId="taskData._id" :listId="taskData.listId" />
-    </div>
+
+    <!-- Comment From -->
     <commentForm v-if="showCommentForm" :taskId="taskData._id" :listId="taskData.listId" />
+    <hr>
   </div>
 </template>
 
@@ -71,6 +84,8 @@
 </script>
 
 <style>
-
-
+  hr {
+    color: white;
+    background-color: aliceblue;
+  }
 </style>
